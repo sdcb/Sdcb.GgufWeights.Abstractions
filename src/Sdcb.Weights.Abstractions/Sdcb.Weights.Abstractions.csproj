@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Sdcb.Weights</RootNamespace>
+    <PackageId>Sdcb.Weights.Abstractions</PackageId>
+    <Description>Contracts for chunked model-weight packages: segment identity (manifest) + zero-copy read.</Description>
+  </PropertyGroup>
+</Project>

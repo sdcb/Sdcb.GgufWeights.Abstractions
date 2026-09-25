@@ -1,0 +1,10 @@
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.csproj.AssemblyReference.cache
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.GeneratedMSBuildEditorConfig.editorconfig
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.AssemblyInfoInputs.cache
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.AssemblyInfo.cs
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.csproj.CoreCompileInputs.cache
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/bin/Release/netstandard2.0/Sdcb.Weights.Abstractions.deps.json
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/bin/Release/netstandard2.0/Sdcb.Weights.Abstractions.dll
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/bin/Release/netstandard2.0/Sdcb.Weights.Abstractions.pdb
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.dll
+/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/Release/netstandard2.0/Sdcb.Weights.Abstractions.pdb
