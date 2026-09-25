@@ -1,7 +1,7 @@
 using System.IO;
 using System.Reflection;
 
-namespace Sdcb.Weights;
+namespace Sdcb.GgufWeights;
 
 /// <summary>
 /// <see cref="IModelWeightSegment"/> over an assembly-embedded resource: the

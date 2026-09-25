@@ -185,11 +185,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/Sdcb.Weights.Abstractions.csproj",
-      "projectName": "Sdcb.Weights.Abstractions",
-      "projectPath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/Sdcb.Weights.Abstractions.csproj",
+      "projectUniqueName": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.GgufWeights.Abstractions/Sdcb.GgufWeights.Abstractions.csproj",
+      "projectName": "Sdcb.GgufWeights.Abstractions",
+      "projectPath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.GgufWeights.Abstractions/Sdcb.GgufWeights.Abstractions.csproj",
       "packagesPath": "/Users/devin/.nuget/packages/",
-      "outputPath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/obj/",
+      "outputPath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.GgufWeights.Abstractions/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/devin/.nuget/NuGet/NuGet.Config"

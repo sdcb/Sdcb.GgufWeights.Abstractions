@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6RNYv6YNipk=",
+  "dgSpecHash": "2zQGRxMuiHA=",
   "success": true,
-  "projectFilePath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.Weights.Abstractions/Sdcb.Weights.Abstractions.csproj",
+  "projectFilePath": "/Users/devin/repos/Sdcb.Weights/src/Sdcb.GgufWeights.Abstractions/Sdcb.GgufWeights.Abstractions.csproj",
   "expectedPackageFiles": [
     "/Users/devin/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/devin/.nuget/packages/netstandard.library/2.0.3/netstandard.library.2.0.3.nupkg.sha512"

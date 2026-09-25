@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace Sdcb.Weights;
+namespace Sdcb.GgufWeights;
 
 /// <summary>
 /// One packaged weight segment: identifies itself via <see cref="Manifest"/> and

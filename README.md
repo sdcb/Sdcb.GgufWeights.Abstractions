@@ -1,21 +1,24 @@
-# Sdcb.Weights.Abstractions
+# Sdcb.GgufWeights.Abstractions
 
-Contracts for chunked LLM weight distribution — shared by weight nupkgs (≤250MB each) and inference engines.
+Contracts for chunked GGUF weight distribution — shared by weight nupkgs (≤250MB each) and inference engines.
 
-Deliberately thin: **identity + read, no merge logic**. netstandard2.0, AOT-safe (no reflection at runtime; manifest is a plain POCO).
+Deliberately thin: **identity + read + segment stitching**. netstandard2.0, AOT-safe (no runtime reflection; manifest is a plain POCO).
 
 ## Concepts
 
-- A model's weights split into **logical files** (`model.gguf`, `mmproj.gguf`, …), each file split into ordered **segments** (typically ~230MB, one per package/DLL).
+- A GGUF model splits into **logical files** (`model.gguf`, `mmproj.gguf`, …), each file split into ordered **segments** (typically ~230MB, one per package/DLL).
 - A segment package implements `IModelWeightSegment`: `Manifest` says where it sits (`File`, `Index`, `Count`, `Offset`, `Length`, `Sha256`), `OpenStream()` yields a zero-copy seekable payload stream (embedded resource / mmap / whatever the package chooses).
-- The inference side owns stitching: collect segments per `File`/`ModelId`, order by `Index`, and read `[Offset, Offset+Length)` windows — or concatenate streams manually. Nothing here dictates how.
+- `SegmentStream.Join` stitches a file's segments back into one seekable `Stream` — validates ModelId/File/Index/Count/Offset consistency, reads lazily, no payload copy.
 
 ```csharp
-public interface IModelWeightSegment
+// In a generated weight package:
+public static class Weights
 {
-    ModelSegmentManifest Manifest { get; }
-    Stream OpenStream();
+    public static Stream Model() => SegmentStream.Join(Part0.Segment, Part1.Segment, Part2.Segment, Part3.Segment);
 }
+
+// In the inference engine:
+using var model = PaddleVlModel.Load(new GgufFile(Weights.Model()), new GgufFile(Weights.Mmproj()));
 ```
 
-`EmbeddedWeightSegment` is the standard generated-package shape: one DLL + one embedded-resource blob, zero-copy over the loaded PE image.
+`EmbeddedWeightSegment` is the standard generated-package shape: one DLL + one embedded-resource blob, zero-copy over the loaded PE image (`GetManifestResourceStream`).

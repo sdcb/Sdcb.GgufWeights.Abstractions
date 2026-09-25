@@ -1,6 +1,6 @@
 using System;
 
-namespace Sdcb.Weights;
+namespace Sdcb.GgufWeights;
 
 /// <summary>
 /// Identity of one weight segment within a chunked logical file.
