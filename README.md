@@ -22,3 +22,18 @@ using var model = PaddleVlModel.Load(new GgufFile(Weights.Model()), new GgufFile
 ```
 
 `EmbeddedWeightSegment` is the standard generated-package shape: one DLL + one embedded-resource blob, zero-copy over the loaded PE image (`GetManifestResourceStream`).
+
+## Packer
+
+`tools/Sdcb.GgufWeights.Packer` turns a `.gguf` (or a directory of them) into ready-to-push nupkgs — Roslyn compiles each part in-process, `NuGet.Packaging` writes the packages, then the built assemblies are loaded and `Weights.Model()` is re-hashed against the source file.
+
+```shell
+dotnet run --project tools/Sdcb.GgufWeights.Packer -c Release -- D:\models --dry-run
+dotnet run --project tools/Sdcb.GgufWeights.Packer -c Release -- D:\models -o nupkgs -v 1.0.0 --license-file LICENSE.txt
+```
+
+`Hy-MT2-1.8B-Q4_K_M.gguf` becomes `Sdcb.GgufWeights.Hy-MT2-1.8B-Q4_K_M` (part 1 + `Weights`) and `….Part2`…`.Part5`, each ≤240MB payload, with the entry package pinning every part at `[version]`. Consumers install only the entry package:
+
+```csharp
+using Stream gguf = Sdcb.GgufWeights.Hy_MT2_1_8B_Q4_K_M.Weights.Model();
+```

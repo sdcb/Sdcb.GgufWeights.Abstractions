@@ -5,6 +5,16 @@
     <LangVersion>latest</LangVersion>
     <RootNamespace>Sdcb.GgufWeights</RootNamespace>
     <PackageId>Sdcb.GgufWeights.Abstractions</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>sdcb</Authors>
     <Description>Contracts for chunked model-weight packages: segment identity (manifest) + zero-copy read.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/sdcb/Sdcb.GgufWeights.Abstractions</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sdcb/Sdcb.GgufWeights.Abstractions.git</RepositoryUrl>
+    <PackageTags>gguf;weights;llm</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="README.md" Visible="false" />
+  </ItemGroup>
 </Project>

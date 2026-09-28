@@ -27,6 +27,6 @@ public sealed class ModelSegmentManifest
     /// <summary>Payload length in bytes.</summary>
     public long Length { get; set; }
 
-    /// <summary>SHA-256 of the payload (hex, lowercase) — verify after stitching, not per read.</summary>
+    /// <summary>SHA-256 (hex, lowercase) of this segment's payload only — not of the whole logical file. Verify out of band, not per read.</summary>
     public string Sha256 { get; set; } = "";
 }
