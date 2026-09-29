@@ -8,9 +8,15 @@ namespace Sdcb.GgufWeights;
 /// A single seekable, read-only <see cref="Stream"/> over an ordered run of
 /// <see cref="IModelWeightSegment"/>s — the stitched view of one logical file.
 /// Underlying segment streams open lazily on first read; no payload copy.
+/// <see cref="Read(byte[], int, int)"/> may return fewer bytes than requested and
+/// always stops at a segment boundary — loop until it returns 0. On .NET 7+ use
+/// <c>ReadExactly</c>. <see cref="Read(Span{byte})"/> hands the inner stream at most
+/// 4MB at a time, instead of renting an array the size of the caller's span.
 /// </summary>
 public sealed class SegmentStream : Stream
 {
+    /// <summary>Largest slice passed to the current segment stream from <see cref="Read(Span{byte})"/>.</summary>
+    internal const int MaxSpanChunk = 4 << 20;
     private readonly IModelWeightSegment[] _segments;
     private readonly long[] _cumOffsets;   // _cumOffsets[i] = logical offset where segment i starts
     private readonly Stream?[] _streams;
@@ -93,6 +99,30 @@ public sealed class SegmentStream : Stream
         int n = s.Read(buffer, offset, canRead);
         _position += n;
         return n;
+    }
+
+    /// <summary>
+    /// Same short-read rule as <see cref="Read(byte[], int, int)"/>: stops at the current
+    /// segment boundary. Each call into the segment stream is at most <see cref="MaxSpanChunk"/>,
+    /// so a span that covers a whole tensor does not make the base <see cref="Stream"/> rent a matching array.
+    /// </summary>
+    public override int Read(Span<byte> buffer)
+    {
+        if (_position >= _length) return 0;
+        int seg = FindSegment(_position);
+        Stream s = StreamFor(seg);
+        s.Position = _position - _cumOffsets[seg];
+        int canRead = (int)Math.Min(buffer.Length, _cumOffsets[seg] + _segments[seg].Manifest.Length - _position);
+        int read = 0;
+        while (read < canRead)
+        {
+            int slice = Math.Min(MaxSpanChunk, canRead - read);
+            int n = s.Read(buffer.Slice(read, slice));
+            if (n == 0) break;
+            read += n;
+            _position += n;
+        }
+        return read;
     }
 
     private int FindSegment(long position)

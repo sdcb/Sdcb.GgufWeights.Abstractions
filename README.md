@@ -2,13 +2,13 @@
 
 Contracts for chunked GGUF weight distribution — shared by weight nupkgs (≤250MB each) and inference engines.
 
-Deliberately thin: **identity + read + segment stitching**. netstandard2.0, AOT-safe (no runtime reflection; manifest is a plain POCO).
+Deliberately thin: **identity + read + segment stitching**. One `netstandard2.1` assembly (one DLL in the package). AOT-safe (no runtime reflection; manifest is a plain POCO). .NET Core 3.0+ and .NET 5+; not .NET Framework.
 
 ## Concepts
 
 - A GGUF model splits into **logical files** (`model.gguf`, `mmproj.gguf`, …), each file split into ordered **segments** (typically ~230MB, one per package/DLL).
 - A segment package implements `IModelWeightSegment`: `Manifest` says where it sits (`File`, `Index`, `Count`, `Offset`, `Length`, `Sha256`), `OpenStream()` yields a zero-copy seekable payload stream (embedded resource / mmap / whatever the package chooses).
-- `SegmentStream.Join` stitches a file's segments back into one seekable `Stream` — validates ModelId/File/Index/Count/Offset consistency, reads lazily, no payload copy.
+- `SegmentStream.Join` stitches a file's segments back into one seekable `Stream` — validates ModelId/File/Index/Count/Offset consistency, reads lazily, no payload copy. `Read` may return fewer bytes than requested and always stops at a segment boundary; loop until 0 (or use `ReadExactly` on .NET 7+). `Read(Span<byte>)` feeds the inner stream at most 4MB per call, so a large span does not rent an equally large `ArrayPool` buffer.
 
 ```csharp
 // In a generated weight package:

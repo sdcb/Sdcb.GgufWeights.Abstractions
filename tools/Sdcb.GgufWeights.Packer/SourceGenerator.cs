@@ -70,7 +70,7 @@ internal static class SourceGenerator
             sb.AppendLine($"            {p.ClassName}.Segment,");
         sb.AppendLine("        };");
         sb.AppendLine();
-        sb.AppendLine("        /// <summary>Opens the stitched, seekable, read-only GGUF stream.</summary>");
+        sb.AppendLine("        /// <summary>Opens the stitched, seekable, read-only GGUF stream. Read may return short and always stops at a segment boundary — loop until 0, or use ReadExactly on .NET 7+.</summary>");
         sb.AppendLine("        public static SegmentStream Model() => SegmentStream.Join(Segments());");
         sb.AppendLine("    }");
     }

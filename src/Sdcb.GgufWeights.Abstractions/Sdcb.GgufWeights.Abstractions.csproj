@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
     <RootNamespace>Sdcb.GgufWeights</RootNamespace>
@@ -16,5 +16,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\README.md" Pack="true" PackagePath="README.md" Visible="false" />
+    <InternalsVisibleTo Include="Sdcb.GgufWeights.Abstractions.Tests" />
   </ItemGroup>
 </Project>

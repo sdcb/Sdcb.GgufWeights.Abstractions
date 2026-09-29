@@ -5,7 +5,7 @@ using Microsoft.CodeAnalysis.Emit;
 
 namespace Sdcb.GgufWeights.Packer;
 
-/// <summary>Compiles one netstandard2.0 part DLL in-process, embedding its slice of the GGUF as a manifest resource.</summary>
+/// <summary>Compiles one netstandard2.1 part DLL in-process, embedding its slice of the GGUF as a manifest resource.</summary>
 internal static class AssemblyEmitter
 {
     private static readonly MetadataReference AbstractionsRef =
@@ -14,7 +14,7 @@ internal static class AssemblyEmitter
     public static void Emit(PackPlan plan, PartPlan part, string source, IEnumerable<string> referencePaths, string outputDll)
     {
         SyntaxTree tree = CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.CSharp7_3), path: part.ClassName + ".g.cs");
-        List<MetadataReference> refs = [.. NetStandard20.References.All, AbstractionsRef];
+        List<MetadataReference> refs = [.. NetStandard21.References.All, AbstractionsRef];
         refs.AddRange(referencePaths.Select(p => MetadataReference.CreateFromFile(p)));
 
         CSharpCompilation compilation = CSharpCompilation.Create(

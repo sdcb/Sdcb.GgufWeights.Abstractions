@@ -47,12 +47,12 @@ internal static class NupkgWriter
             VersionRange exact = new(plan.Version, true, plan.Version, true);
             deps.AddRange(plan.Parts.Skip(1).Select(p => new PackageDependency(p.PackageId, exact)));
         }
-        b.DependencyGroups.Add(new PackageDependencyGroup(FrameworkConstants.CommonFrameworks.NetStandard20, deps));
+        b.DependencyGroups.Add(new PackageDependencyGroup(FrameworkConstants.CommonFrameworks.NetStandard21, deps));
 
         b.Files.Add(new PhysicalPackageFile
         {
             SourcePath = dll,
-            TargetPath = $"lib/netstandard2.0/{part.PackageId}.dll",
+            TargetPath = $"lib/netstandard2.1/{part.PackageId}.dll",
         });
 
         string readme = Path.Combine(workDir, part.PackageId + ".README.md");

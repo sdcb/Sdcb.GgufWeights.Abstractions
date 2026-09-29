@@ -33,7 +33,7 @@ internal static class Verifier
             PartPlan part = plan.Parts[i];
             if (id.Id != part.PackageId || id.Version != plan.Version)
                 throw new InvalidDataException($"{nupkgs[i]}: identity {id} != {part.PackageId} {plan.Version}");
-            string lib = $"lib/netstandard2.0/{part.PackageId}.dll";
+            string lib = $"lib/netstandard2.1/{part.PackageId}.dll";
             if (!r.GetFiles().Contains(lib))
                 throw new InvalidDataException($"{nupkgs[i]}: missing {lib}");
             if (part.IsEntry)
